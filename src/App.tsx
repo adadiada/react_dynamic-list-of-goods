@@ -7,17 +7,34 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [error, setError] = useState<string | null>(null);
 
   const handleAll = () => {
-    getAll().then(list => setGoods(list));
+    getAll()
+      .then(list => setGoods(list))
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      .catch(error =>
+        setError(error instanceof Error ? error.message : 'Failed to load'),
+      );
   };
 
   const handle5First = () => {
-    get5First().then(list => setGoods(list));
+    get5First()
+      .then(list => setGoods(list))
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      .catch(error =>
+        setError(error instanceof Error ? error.message : 'Failed to load'),
+      );
   };
 
   const handleRedGoods = () => {
-    getRedGoods().then(list => setGoods(list));
+    getRedGoods()
+      .then(list => setGoods(list))
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      .catch(error =>
+        setError(error instanceof Error ? error.message : 'Failed to load'),
+      );
   };
 
   return (
